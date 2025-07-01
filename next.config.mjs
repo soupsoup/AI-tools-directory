@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  distDir: 'out',
+  // Only use static export for production builds
+  ...(process.env.NODE_ENV === 'production' && process.env.BUILD_STATIC === 'true' ? {
+    output: 'export',
+    trailingSlash: true,
+    distDir: 'out',
+  } : {}),
   eslint: {
     ignoreDuringBuilds: true,
   },
